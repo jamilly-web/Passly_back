@@ -1,0 +1,11 @@
+{
+  "name": "BackEndProjetaoV1",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {},
+  "scripts":{
+    "dev": 
+      "sudo docker compose up -d " 
+    
+  }
+}
