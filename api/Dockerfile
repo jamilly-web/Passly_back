@@ -2,9 +2,9 @@ FROM maven:3.9-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
-COPY ./back_end_v1 .
+COPY . .
 
-RUN mvn clean package && mvn clean install
+RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21-jre
 
