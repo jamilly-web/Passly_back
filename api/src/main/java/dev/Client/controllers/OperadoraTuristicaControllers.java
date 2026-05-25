@@ -31,7 +31,7 @@ public class OperadoraTuristicaControllers {
         return entity;
     }
     // Get information by id
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public String getOperadoraTuristicaById(@RequestParam String param) {
         return new String("get information");
     }
