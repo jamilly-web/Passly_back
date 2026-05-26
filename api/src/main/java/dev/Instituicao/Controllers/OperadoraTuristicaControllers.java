@@ -36,7 +36,8 @@ public class OperadoraTuristicaControllers {
     // Get information by id
     @GetMapping("/{id}")
     public ResponseEntity<OperadoraTuristicaEntity> getOperadoraTuristicaById(@PathVariable long id) {
-            OperadoraTuristicaEntity operadora = OperadoraTuristicaEntity.builder()
+        //Entidade exemplo    
+        OperadoraTuristicaEntity operadora = OperadoraTuristicaEntity.builder()
             .NomeUser("Lucas Henrique")
             .NomeInstituicao("Turismo Recife")
             .Cnpj("12.345.678/0001-99")
