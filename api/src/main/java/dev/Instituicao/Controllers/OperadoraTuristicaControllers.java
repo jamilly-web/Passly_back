@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,17 @@ public class OperadoraTuristicaControllers {
     // Get information by id
     @GetMapping("/{id}")
     public ResponseEntity<OperadoraTuristicaEntity> getOperadoraTuristicaById(@PathVariable long id) {
-       
-        OperadoraTuristicaEntity operadoraTuristicaEntity = new OperadoraTuristicaEntity("", "", "", "", "", null);
-        return new ResponseEntity<>(operadoraTuristicaEntity, HttpStatus.OK);
+            OperadoraTuristicaEntity operadora = OperadoraTuristicaEntity.builder()
+            .NomeUser("Lucas Henrique")
+            .NomeInstituicao("Turismo Recife")
+            .Cnpj("12.345.678/0001-99")
+            .Senha("123456")
+            .Login("lucas123")
+            .DataCriacao(LocalDate.now())
+            .PolosVisitacoes(List.of()) 
+            .build();
+
+        return new ResponseEntity<>(operadora, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOperadoraTuristicaById(@PathVariable Long id) {
