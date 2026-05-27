@@ -58,6 +58,10 @@ public class OperadoraTuristicaControllers {
             HttpStatus.NO_CONTENT
     );
 }
+    @GetMapping("/s")
+    public String getMethodName(@RequestParam String param) {
+        return new String("TESTE PIPE");
+    }
     
  
     
