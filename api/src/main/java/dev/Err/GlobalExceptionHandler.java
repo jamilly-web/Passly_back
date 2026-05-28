@@ -1,4 +1,4 @@
-package dev.Instituicao.Err;
+package dev.Err;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-import dev.Instituicao.Err.Response.ErroResponse;
+import dev.Err.Response.ErroResponse;
 
 
 
