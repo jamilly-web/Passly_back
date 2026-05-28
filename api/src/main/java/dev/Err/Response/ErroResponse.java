@@ -1,4 +1,4 @@
-package dev.Instituicao.Err.Response;
+package dev.Err.Response;
 
 import java.time.LocalDateTime;
 
