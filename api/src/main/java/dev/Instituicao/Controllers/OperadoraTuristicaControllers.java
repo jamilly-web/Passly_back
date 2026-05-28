@@ -1,5 +1,7 @@
 package dev.Instituicao.Controllers;
 import dev.Instituicao.Entity.*;
+import dev.Instituicao.Services.OperadoraTuristicaService;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,15 +25,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/operadoras")
 
 public class OperadoraTuristicaControllers {
+    private final OperadoraTuristicaService serviceOperadora = new OperadoraTuristicaService();
+    
     // Create new OperadoraTuristica
     @PostMapping("/")
     public ResponseEntity<String> postOperadoraTuristicaById(@RequestBody OperadoraTuristicaEntity Operadora_) { 
-        return new ResponseEntity<>("Sucesso", HttpStatus.OK);
+        String returnValue = serviceOperadora.CreateOperadoraTuristica(Operadora_);
+        return new ResponseEntity<>(returnValue, HttpStatus.OK);
     }
     // Put Operadora
     @PutMapping("/{id}")
     public ResponseEntity<String> putOperadoraTuristicaById(@PathVariable long id, @RequestBody OperadoraTuristicaEntity Operadora_) {
-        return new ResponseEntity<>("Sucess", HttpStatus.NO_CONTENT);
+        String returnValue = serviceOperadora.UpdateOperadoraTuristicaById(Operadora_, Long.toString(id));
+        return new ResponseEntity<>(returnValue, HttpStatus.NO_CONTENT);
     }
     // Get information by id
     @GetMapping("/{id}")
@@ -52,9 +58,9 @@ public class OperadoraTuristicaControllers {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOperadoraTuristicaById(@PathVariable Long id) {
-
+    String returnValue = serviceOperadora.DeleteOperadoraTuristicaById(Long.toString(id));
     return new ResponseEntity<>(
-            "Sucess",
+            returnValue,
             HttpStatus.NO_CONTENT
     );
 }
