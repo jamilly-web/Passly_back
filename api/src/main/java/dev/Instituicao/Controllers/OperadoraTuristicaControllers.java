@@ -42,8 +42,19 @@ public class OperadoraTuristicaControllers {
     // Get information by id
     @GetMapping("/{id}")
     public ResponseEntity<OperadoraTuristicaEntity> getOperadoraTuristicaById(@PathVariable long id) {
-        OperadoraTuristicaEntity returnOperadora = serviceOperadora.ReadOperadoraTuristicaById(Long.toString(id));
-        return new ResponseEntity<>(returnOperadora, HttpStatus.OK);
+        //Entidade exemplo    
+        OperadoraTuristicaEntity operadora = OperadoraTuristicaEntity.builder()
+            .NomeUser("Lucas Henrique")
+            .NomeInstituicao("Turismo Recife")
+            .Cnpj("12.345.678/0001-99")
+            .Senha("123456")
+            .Login("lucas123")
+            .DataCriacao(LocalDate.now())
+            .PolosVisitacoes(List.of()) 
+            .build();
+
+        return new ResponseEntity<>(operadora, HttpStatus.OK);
+        // _------___------
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOperadoraTuristicaById(@PathVariable Long id) {
@@ -53,6 +64,10 @@ public class OperadoraTuristicaControllers {
             HttpStatus.NO_CONTENT
     );
 }
+    @GetMapping("/s")
+    public String getMethodName_(@RequestParam String param) {
+        return new String("TESTE PIPE");
+    }
     
  
     
