@@ -59,7 +59,7 @@ public class OperadoraTuristicaControllers {
     );
 }
     @GetMapping("/s")
-    public String getMethodName(@RequestParam String param) {
+    public String getMethodName_(@RequestParam String param) {
         return new String("TESTE PIPE");
     }
     
