@@ -1,7 +1,9 @@
 package dev.Client.Entity;
-import java.sql.Date;
-import java.time.LocalDate;
 
+import java.time.LocalDate;
+import lombok.Data;
+
+@Data
 public class VisitacoesEntity {
     private long id;
     private String codigoLugar;
@@ -11,5 +13,4 @@ public class VisitacoesEntity {
     private String nomeLocal;
     private String latitude;
     private String longitude;
-
 }
