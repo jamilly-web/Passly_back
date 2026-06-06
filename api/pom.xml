@@ -30,12 +30,19 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		
+	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.18.26</version>
+	    <scope>provided</scope>
+	</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
+
+		<!-- Removed JPA starter to avoid DataSource autoconfiguration when no DB is provided -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

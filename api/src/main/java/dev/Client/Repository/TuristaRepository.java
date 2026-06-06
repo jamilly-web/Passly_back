@@ -1,14 +1,41 @@
-package com.passly.passly.repository;
+package dev.Client.Repository;
 
-import com.passly.passly.entity.Turista;
-import org.springframework.data.jpa.repository.JpaRepository;
+import dev.Client.Entity.TuristaEntity;
 import org.springframework.stereotype.Repository;
+
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-public interface TuristaRepository extends JpaRepository<Turista, Long> {
+public class TuristaRepository {
 
-    Optional<Turista> findByCpf(String cpf);
+    private final Map<Long, TuristaEntity> store = new ConcurrentHashMap<>();
+    private final AtomicLong seq = new AtomicLong(1);
 
-    boolean existsByCpf(String cpf);
+    public boolean existsByCpf(String cpf) {
+        return store.values().stream().anyMatch(t -> cpf != null && cpf.equals(t.getCpf()));
+    }
+
+    public TuristaEntity save(TuristaEntity turista) {
+        if (turista.getId() == 0) {
+            long id = seq.getAndIncrement();
+            turista.setId(id);
+        }
+        store.put(turista.getId(), turista);
+        return turista;
+    }
+
+    public Optional<TuristaEntity> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
+    }
+
+    public boolean existsById(Long id) {
+        return store.containsKey(id);
+    }
+
+    public void deleteById(Long id) {
+        store.remove(id);
+    }
 }

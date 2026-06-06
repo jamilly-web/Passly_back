@@ -1,39 +1,52 @@
-import org.springframework.beans.factory.annotation.Autowired;
+package dev.Client.Services;
+
+import dev.Client.Dto.TuristaDto;
+import dev.Client.Entity.TuristaEntity;
+import dev.Client.Repository.TuristaRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
-import com.passly.passly.entity.Visitacao;
 import java.util.stream.Collectors;
 
 @Service
 public class TuristaService {
 
-    @Autowired
-    private TuristaRepository turistaRepository;
+    // ✅ Injeção via construtor — sem @Autowired no campo
+    private final TuristaRepository turistaRepository;
 
-    public TuristaDTO.Response cadastrar(TuristaDTO.Request dto) {
+    public TuristaService(TuristaRepository turistaRepository) {
+        this.turistaRepository = turistaRepository;
+    }
+
+    public TuristaDto.Response cadastrar(TuristaDto.Request dto) {
         if (turistaRepository.existsByCpf(dto.getCpf())) {
             throw new RuntimeException("Já existe um turista com esse CPF.");
         }
-        Turista turista = new Turista(
-            dto.getNome(),
-            dto.getCpf(),
-            dto.getEmail(),
-            dto.getTelefone(),
-            dto.getPassaporte(),
-            dto.getDataNascimento()
+
+        // ✅ Usando TuristaEntity consistentemente
+        TuristaEntity turista = new TuristaEntity(
+                dto.getNome(),
+                dto.getCpf(),
+                dto.getEmail(),
+                dto.getTelefone(),
+                dto.getPassaporte(),
+                dto.getDataNascimento()
         );
-        return new TuristaDTO.Response(turistaRepository.save(turista));
+
+        return new TuristaDto.Response(turistaRepository.save(turista));
     }
 
-    public TuristaDTO.Response atualizar(Long id, TuristaDTO.Request dto) {
-        Turista turista = turistaRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Turista não encontrado com id: " + id));
+    public TuristaDto.Response atualizar(Long id, TuristaDto.Request dto) {
+        TuristaEntity turista = turistaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Turista não encontrado com id: " + id));
+
         turista.setNome(dto.getNome());
         turista.setEmail(dto.getEmail());
         turista.setTelefone(dto.getTelefone());
         turista.setPassaporte(dto.getPassaporte());
         turista.setDataNascimento(dto.getDataNascimento());
-        return new TuristaDTO.Response(turistaRepository.save(turista));
+
+        return new TuristaDto.Response(turistaRepository.save(turista));
     }
 
     public void deletar(Long id) {
@@ -43,18 +56,18 @@ public class TuristaService {
         turistaRepository.deleteById(id);
     }
 
-    public TuristaDTO.Response buscarPorId(Long id) {
-        Turista turista = turistaRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Turista não encontrado com id: " + id));
-        return new TuristaDTO.Response(turista);
+    public TuristaDto.Response buscarPorId(Long id) {
+        TuristaEntity turista = turistaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Turista não encontrado com id: " + id));
+        return new TuristaDto.Response(turista);
     }
 
-    public List<TuristaDTO.HistoricoResponse> buscarHistorico(Long id) {
-        Turista turista = turistaRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Turista não encontrado com id: " + id));
+    public List<TuristaDto.HistoricoResponse> buscarHistorico(Long id) {
+        TuristaEntity turista = turistaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Turista não encontrado com id: " + id));
         return turista.getHistorico()
-            .stream()
-            .map(TuristaDTO.HistoricoResponse::new)
-            .collect(Collectors.toList());
+                .stream()
+                .map(TuristaDto.HistoricoResponse::new)
+                .collect(Collectors.toList());
     }
 }
