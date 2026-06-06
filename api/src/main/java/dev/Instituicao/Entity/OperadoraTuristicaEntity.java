@@ -6,6 +6,8 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 // ENTITY OPERADORA TURISTICA
+@Data
+@Builder
 public class OperadoraTuristicaEntity {
 
     private long id;
