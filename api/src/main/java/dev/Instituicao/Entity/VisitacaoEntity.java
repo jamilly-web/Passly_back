@@ -1,13 +1,10 @@
 package dev.Instituicao.Entity;
 
 import java.time.LocalDate;
+import lombok.Data;
 
-import org.springframework.cglib.core.Local;
-
-
-
+@Data
 public class VisitacaoEntity {
-    private LocalDate DataVisita;
-    private int NotaVisitacao;
-    
+    private LocalDate dataVisita;
+    private int notaVisitacao;
 }
