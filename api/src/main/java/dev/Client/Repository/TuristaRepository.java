@@ -18,6 +18,14 @@ public class TuristaRepository {
         return store.values().stream().anyMatch(t -> cpf != null && cpf.equals(t.getCpf()));
     }
 
+    public boolean existsByEmail(String email) {
+        return store.values().stream().anyMatch(t -> email != null && email.equals(t.getEmail()));
+    }
+
+    public long count() {
+        return store.size();
+    }
+
     public TuristaEntity save(TuristaEntity turista) {
         if (turista.getId() == 0) {
             long id = seq.getAndIncrement();

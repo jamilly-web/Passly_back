@@ -35,6 +35,11 @@ public class TuristaController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/total")
+    public ResponseEntity<Long> contarTotal() {
+        return ResponseEntity.ok(turistaService.contarTotal());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TuristaDto.Response> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(turistaService.buscarPorId(id));

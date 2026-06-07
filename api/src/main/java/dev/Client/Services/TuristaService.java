@@ -18,9 +18,16 @@ public class TuristaService {
         this.turistaRepository = turistaRepository;
     }
 
+    public long contarTotal() {
+        return turistaRepository.count();
+    }
+
     public TuristaDto.Response cadastrar(TuristaDto.Request dto) {
         if (turistaRepository.existsByCpf(dto.getCpf())) {
             throw new RuntimeException("Já existe um turista com esse CPF.");
+        }
+        if (turistaRepository.existsByEmail(dto.getEmail())) {
+            throw new RuntimeException("Já existe um turista com esse e-mail.");
         }
 
         // ✅ Usando TuristaEntity consistentemente
