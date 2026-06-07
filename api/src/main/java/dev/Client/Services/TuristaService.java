@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class TuristaService {
 
-    // ✅ Injeção via construtor — sem @Autowired no campo
+    
     private final TuristaRepository turistaRepository;
 
     public TuristaService(TuristaRepository turistaRepository) {
@@ -23,7 +23,7 @@ public class TuristaService {
             throw new RuntimeException("Já existe um turista com esse CPF.");
         }
 
-        // ✅ Usando TuristaEntity consistentemente
+        
         TuristaEntity turista = new TuristaEntity(
                 dto.getNome(),
                 dto.getCpf(),
