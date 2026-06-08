@@ -1,11 +1,16 @@
 package dev.CheckIn.Models;
 
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+import dev.Client.Entity.TuristaEntity;
 
 @Data
 public class CheckInModel {
-    String Longitude;
-    String Latitude;
-    long IdUser;
-    int Note;
+    private String Latitude;
+    private  String Longitude;
+    private short Nota;
+    private  String Comentario;
 }

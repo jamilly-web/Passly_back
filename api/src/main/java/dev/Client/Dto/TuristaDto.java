@@ -55,7 +55,7 @@ public class TuristaDto {
         private String cpf;
         private String email;
         private String telefone;
-        private String passaporte;
+
         private LocalDate dataNascimento;
 
         public Response() {}
@@ -66,7 +66,6 @@ public class TuristaDto {
             this.cpf            = turista.getCpf();
             this.email          = turista.getEmail();
             this.telefone       = turista.getTelefone();
-            this.passaporte     = turista.getPassaporte();
             this.dataNascimento = turista.getDataNascimento();
         }
 
@@ -75,7 +74,6 @@ public class TuristaDto {
         public String getCpf()              { return cpf; }
         public String getEmail()             { return email; }
         public String getTelefone()          { return telefone; }
-        public String getPassaporte()        { return passaporte; }
         public LocalDate getDataNascimento() { return dataNascimento; }
     }
 
@@ -86,10 +84,10 @@ public class TuristaDto {
 
         public HistoricoResponse() {}
 
-        public HistoricoResponse(VisitacoesEntity v) {
+        public HistoricoResponse(VisitacoesEntityByTurista v) {
             this.visitacaoId = v.getId();
-            this.localVisitado = v.getNomeLocal();
-            this.dataVisita    = v.getDataCheckIn();
+            this.localVisitado = v.getLocalVisitado();
+            this.dataVisita    = v.getDataVisita().toLocalDate();
         }
 
         public Long getVisitacaoId()          { return visitacaoId; }

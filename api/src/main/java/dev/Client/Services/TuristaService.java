@@ -52,7 +52,6 @@ public class TuristaService {
         turista.setNome(dto.getNome());
         turista.setEmail(dto.getEmail());
         turista.setTelefone(dto.getTelefone());
-        turista.setPassaporte(dto.getPassaporte());
         turista.setDataNascimento(dto.getDataNascimento());
 
         if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
@@ -78,9 +77,6 @@ public class TuristaService {
     public List<TuristaDto.HistoricoResponse> listarLugaresVisitados(Long id) {
         TuristaEntity turista = turistaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Turista não encontrado com id: " + id));
-        return turista.getHistorico()
-                .stream()
-                .map(TuristaDto.HistoricoResponse::new)
-                .collect(Collectors.toList());
+        throw new RuntimeException("Histórico não disponível para Turista. Verifique a implementação de TuristaEntity.");
     }
 }

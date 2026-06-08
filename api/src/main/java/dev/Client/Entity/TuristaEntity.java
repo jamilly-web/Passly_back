@@ -1,35 +1,53 @@
 package dev.Client.Entity;
-import lombok.Data;
 
+import jakarta.persistence.*;
+import lombok.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "turista", schema = "turista")
 public class TuristaEntity {
-    private long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idturista")
+    private Long id;
+
+    @Column(name = "nome", nullable = false, length = 150)
     private String nome;
-    private String email;
-    private String dataCriacao;
-    private String cep;
-    private String senha;
-    private String telefone;
+
+    @Column(name = "cpf", nullable = false, unique = true, length = 14)
     private String cpf;
-    private String passaporte;
+
+    @Column(name = "email", nullable = false, unique = true, length = 150)
+    private String email;
+
+    @Column(name = "telefone", length = 20)
+    private String telefone;
+
+    @Column(name = "datanascimento", nullable = false)
     private LocalDate dataNascimento;
-    
-    private List<VisitacoesEntity> historico = new ArrayList<>();
 
-    public TuristaEntity() {
-    }
+    @Column(name = "login", nullable = false, unique = true, length = 100)
+    private String login;
 
-    public TuristaEntity(String nome, String cpf, String email, String telefone, String passaporte, LocalDate dataNascimento) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
-        this.passaporte = passaporte;
-        this.dataNascimento = dataNascimento;
+    @Column(name = "senha", nullable = false, length = 255)
+    private String senha;
+
+    @Column(name = "datacriacao", nullable = false, updatable = false)
+    private LocalDateTime dataCriacao;
+
+    @OneToMany(mappedBy = "turista", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VisitacoesEntityByTurista> visitacoes;
+
+    @PrePersist
+    public void prePersist() {
+        this.dataCriacao = LocalDateTime.now();
     }
 }
