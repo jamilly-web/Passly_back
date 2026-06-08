@@ -22,7 +22,7 @@ public class DataBaseConnectionTest implements CommandLineRunner {
             
         jdbcTemplate.execute((Connection conn)->{
            
-            System.out.println("*--------------------------------------------------------------\n");
+            System.out.println("*--------------------------------------------------------------");
             DatabaseMetaData metaData = conn.getMetaData();
             System.out.println("| STATUS: \u001B[32mConexão realizada com sucesso!\u001B[0m");
             System.out.println("| URL: " + metaData.getURL());

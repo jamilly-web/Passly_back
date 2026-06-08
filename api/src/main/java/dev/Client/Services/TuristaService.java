@@ -19,19 +19,14 @@ public class TuristaService {
     }
 
     public TuristaDto.Response cadastrar(TuristaDto.Request dto) {
-        if (turistaRepository.existsByCpf(dto.getCpf())) {
-            throw new RuntimeException("Já existe um turista com esse CPF.");
-        }
-
-        
-        TuristaEntity turista = new TuristaEntity(
-                dto.getNome(),
-                dto.getCpf(),
-                dto.getEmail(),
-                dto.getTelefone(),
-                dto.getPassaporte(),
-                dto.getDataNascimento()
-        );
+    
+        // Use default constructor and setters because TuristaEntity may not have a matching all-args constructor
+        TuristaEntity turista = new TuristaEntity();
+        turista.setNome(dto.getNome());
+        turista.setCpf(dto.getCpf());
+        turista.setEmail(dto.getEmail());
+        turista.setTelefone(dto.getTelefone());
+        turista.setDataNascimento(dto.getDataNascimento());
 
         return new TuristaDto.Response(turistaRepository.save(turista));
     }
@@ -43,7 +38,6 @@ public class TuristaService {
         turista.setNome(dto.getNome());
         turista.setEmail(dto.getEmail());
         turista.setTelefone(dto.getTelefone());
-        turista.setPassaporte(dto.getPassaporte());
         turista.setDataNascimento(dto.getDataNascimento());
 
         return new TuristaDto.Response(turistaRepository.save(turista));
@@ -65,9 +59,6 @@ public class TuristaService {
     public List<TuristaDto.HistoricoResponse> buscarHistorico(Long id) {
         TuristaEntity turista = turistaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Turista não encontrado com id: " + id));
-        return turista.getHistorico()
-                .stream()
-                .map(TuristaDto.HistoricoResponse::new)
-                .collect(Collectors.toList());
+        throw new RuntimeException("Histórico não disponível para Turista. Verifique a implementação de TuristaEntity.");
     }
 }
