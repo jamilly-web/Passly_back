@@ -1,6 +1,8 @@
 package dev.Client.Repository;
 
 import dev.Client.Entity.TuristaEntity;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
@@ -43,7 +45,5 @@ public class TuristaRepository {
         return store.containsKey(id);
     }
 
-    public void deleteById(Long id) {
-        store.remove(id);
-    }
+   
 }

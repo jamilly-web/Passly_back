@@ -9,14 +9,21 @@ import dev.Err.Response.ErroResponse;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
 class CheckInController {
-    @PostMapping("/check-in/{id}")
-    public ResponseEntity<String> checkInByIdLocalTuristico(@PathVariable long Id_, CheckInModel checkInModel) {
+    private final CheckInService checkInService;
+
+    public CheckInController(CheckInService checkInService) {
+        this.checkInService = checkInService;
+    }
+
+    @PostMapping("/check-in/{idLocal}/{idUser}")
+    public ResponseEntity<String> checkInByIdLocalTuristico(@PathVariable long IdLocal,@PathVariable Long IdUser, @RequestBody CheckInModel checkInModel) {
         try {
-            CheckInService.AddVisitByLocalTuristico(checkInModel, Id_);
+            checkInService.CheckIn(IdLocal, IdUser, checkInModel);
             return ResponseEntity.status(HttpStatus.CREATED).body("Check-in criado com sucesso");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroResponse(500, e.getMessage()).toString());
