@@ -35,7 +35,7 @@ public class LocalTuristicoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletar(
         @PathVariable long id) {
-        return new ResponseEntity<>("Sucesso", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Sucesso: ", HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
